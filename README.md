@@ -1,5 +1,5 @@
 # MeuDinheiro
-Título do projeto : FInanças (MeuDinheiro).
+Título do projeto : Finanças (MeuDinheiro).
 Status do projeto : em desenvolvimento.
 Tecnologias que serão aplicadas : HTML, banco de dados, javaScript...
 Time de desenvolvedores : Gerente de projetos, Desenvolvedor Front end, Desenvolvedor Back end, especialista em banco de dados,especialista em segurança de sistemas...
