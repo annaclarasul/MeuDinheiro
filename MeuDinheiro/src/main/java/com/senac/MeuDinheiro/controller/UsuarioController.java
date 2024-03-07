@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.senac.MeuDinheiro.controller;
 
 import com.senac.MeuDinheiro.model.Usuario;
@@ -43,18 +46,18 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluirUsuario(@PathVariable Long id) {
-        usuarioService.excluirUsuario(id);
+    public ResponseEntity<Void> ExcluirUsuario(@PathVariable Long id) {
+        usuarioService.ExcluirUsuario(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
-        Usuario updatedUsuario = usuarioService.atualizarUsuario(id, usuario);
-        if (updatedUsuario == null) {
+        Usuario atualizarUsuario = usuarioService.atualizarUsuario(usuario);
+        if (atualizarUsuario == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(updatedUsuario);
+        return ResponseEntity.ok(atualizarUsuario);
     }
 
 }
