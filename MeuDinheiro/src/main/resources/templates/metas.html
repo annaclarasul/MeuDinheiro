@@ -4,51 +4,79 @@
         <meta charset="UTF-8">
         <title>Metas</title>
         <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+
             .info {
                 color: green;
             }
+
             .warning {
                 color: yellow;
             }
+
             .error {
                 color: red;
             }
+
             table {
                 border-collapse: collapse;
                 width: 100%;
+                margin-bottom: 20px;
             }
+
             th, td {
-                border: 1px solid black;
+                border: 1px solid #ddd;
                 padding: 8px;
                 text-align: left;
             }
+
             th {
                 background-color: #f2f2f2;
+                padding: 12px;
             }
+
             tr:nth-child(even) {
                 background-color: #f2f2f2;
             }
+
             tr:hover {
                 background-color: #ddd;
             }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            form label {
+                margin-bottom: 5px;
+            }
+
             form input[type="text"], form input[type="number"], form select {
                 width: 100%;
                 padding: 10px;
-                margin: 8px 0;
+                margin-bottom: 15px;
                 box-sizing: border-box;
-                border: 2px solid #ccc;
+                border: 1px solid #ccc;
                 border-radius: 4px;
             }
+
             form input[type="submit"] {
                 width: 100%;
                 background-color: #4CAF50;
                 color: white;
                 padding: 14px 20px;
-                margin: 8px 0;
+                margin-bottom: 10px;
                 border: none;
                 border-radius: 4px;
                 cursor: pointer;
             }
+
             form input[type="submit"]:hover {
                 background-color: #45a049;
             }
@@ -74,10 +102,10 @@
             <input type="date" id="meta-prazo" name="prazo">
 
             <button type="submit" id="cf7_submit">Enviar</button>
+            <button onclick="window.location.href='conta.html'">Voltar</button>
         </form>
         <script>
             const form = document.getElementById('meta-form');
-
             form.addEventListener('submit', e => {
                 e.preventDefault();
 
@@ -89,7 +117,35 @@
 
                 const meta = {id, nome, tipo, valor, prazo};
 
-                // Send the data to the server using AJAX or Fetch API
+                document.addEventListener('DOMContentLoaded', () => {
+                    const metaForm = document.getElementById('meta-form');
+
+                    metaForm.addEventListener('submit', e => {
+                        e.preventDefault();
+
+                        const meta = {};
+                        const formData = new FormData(metaForm);
+
+                        for (let [key, value] of formData.entries()) {
+                            meta[key] = value;
+                        }
+
+                        fetch("/api/metas", {
+                            method: "POST",
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(meta)
+                        })
+                                .then(response => response.json())
+                                .then(data => {
+                                    // Manipulate the data for displaying metas
+                                    console.log(data);
+
+                                    metaForm.reset();
+                                });
+                    });
+                });
             });
         </script>
     </body>
