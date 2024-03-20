@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificações</title>
+    <style>
+        /* Adicione seus estilos CSS aqui */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #dddddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #dddddd;
+        }
+        .read {
+            background-color: #dddddd;
+        }
+        .deleted {
+            background-color: #ffcccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Notificações</h1>
+    <input type="text" id="search-input" onkeyup="filterNotifications()" placeholder="Pesquisar notificação...">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Tipo</th>
+                <th>Mensagem</th>
+                <th>Data</th>
+                <th>Usuário</th>
+                <th>Excluir</th>
+                <th>Ler</th>
+            </tr>
+        </thead>
+        <tbody id="notifications">
+            <tr>
+                <td>1</td>
+                <td>Nova Dica</td>
+                <td> 1</td>
+                <td>Mensagem </td>
+                <td>10/10/2021</td>
+                <td>maria</td>
+                <td><button onclick="deleteNotification(1)">Excluir</button></td>
+                <td><button onclick="readNotification(1)">Ler</button></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>objetivo alcançado!</td>
+                <td> 2</td>
+                <td>Mensagem </td>
+                <td>11/10/2023</td>
+                <td>Meu Dinheiro</td>
+                <td><button onclick="deleteNotification(2)">Excluir</button></td>
+                <td><button onclick="readNotification(2)">Ler</button></td>
+            </tr>
+            <button onclick="window.location.href='conta.html'">Voltar</button>
+        </tbody>
+    </table>
+    <script>
+        // Adicione seus scripts JavaScript aqui
+        function filterNotifications() {
+            // Adicione sua lógica de filtragem de notificações aqui
+        }
+        function deleteNotification(id) {
+            // Adicione sua lógica de exclusão de notificação aqui
+            let row = document.getElementById("notifications").rows[id-1];
+            row.classList.add("deleted");
+            row.remove();
+            filterNotifications();
+        }
+        function readNotification(id) {
+            // Adicione sua lógica de marcar notificação como lida aqui
+            let row = document.getElementById("notifications").rows[id-1];
+            row.classList.add("read");
+            filterNotifications();
+        }
+    </script>
+</body>
+</html>
