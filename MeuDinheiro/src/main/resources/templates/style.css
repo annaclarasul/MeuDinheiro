@@ -1,46 +1,171 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            width: 300px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 3px;
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        .link {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .link a {
-            color: #000;
-            text-decoration: none;
-        }
-        .link a:hover {
-            text-decoration: underline;
-        }
- 
+body {
+  background-color: #E5E5E5;
+  font-family: Arial, sans-serif;
+}
 
+.container {
+  max-width: 960px;
+  padding: 20px;
+  margin: 20px auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.user-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.saldo {
+  width: 45%;
+}
+
+.user-info div {
+  width: 45%;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #F5F5F5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #CCC;
+}
+
+.saldo h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.user-name h2 {
+  font-size: 24px;
+}
+
+.notifications {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.notification {
+  width: 45%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid #CCC;
+}
+
+.notification.success {
+  background-color: #A9DFBF;
+}
+
+.notification.warning {
+  background-color: #FFF5BA;
+}
+
+.notification .text {
+  font-size: 18px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.notification .icon {
+  font-size: 36px;
+  color: #5C5C5C;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.buttons button {
+  width: 30%;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #CCC;
+  cursor: pointer;
+  background-color: white;
+}
+
+.tips {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.tip {
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #F5F5F5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid #CCC;
+}
+
+.tip h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.tips div {
+  font-size: 16px;
+}
+
+@media screen and (max-width: 767px) {
+  .user-info {
+    flex-wrap: wrap;
+  }.user-info div {
+    width: 100%;
+  }
+
+  .notifications {
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+  }
+
+  .notification {
+    width: 100%;
+  }
+
+  .buttons {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .buttons button {
+    width: 45%;
+  }
+
+  .tips {
+    grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+    grid-gap: 10px;
+  }
+}
