@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalhes do Registro</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}"/>
+</head>
+<body>
+    <h1>Detalhes do Registro</h1>
+    <p><strong>Categoria:</strong> <span th:text="${registro.categoria}"></span></p>
+    <p><strong>Data:</strong> <span th:text="${registro.data}"></span></p>
+    <p><strong>Valor:</strong> <span th:text="${registro.valor}"></span></p>
+    <p><strong>Tipo:</strong> <span th:text="${registro.tipo}"></span></p>
+    <a th:href="@{/registros}">Voltar</a>
+</body>
+</html>
