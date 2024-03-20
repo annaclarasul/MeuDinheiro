@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registros</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="cadastroRegistro.html">
+            <div class="card" id="cadastro">
+                <h1>Cadastro</h1>
+                <p>Clique aqui para cadastrar um novo registro.</p>
+            </div>
+        </a>
+        <a href="DetalhesRegistro.html">
+            <div class="card" id="detalhes">
+                <h1>Detalhes</h1>
+                <p>Clique aqui para ver os detalhes de um registro.</p>
+            </div>
+        </a>
+        <a href="registros.html">
+            <div class="card" id="listagem">
+                <h1>Listagem</h1>
+                <p>Clique aqui para ver a listagem de todos os registros.</p>
+            </div>
+        </a>
+        <button onclick="window.location.href='conta.html'">Voltar</button>
+    </div>
+  
+</body>
+</html>
