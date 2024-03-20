@@ -1,79 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Usuário</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 5px;
-        }
-        .form-group button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 5px 10px;
-            border: none;
-            cursor: pointer;
-        }
-        .form-group button:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-    <h1>Cadastro de Usuário</h1>
-    <form id="userForm">
-        <div class="form-group">
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #f0f0f0;
+            }
+
+            h1 {
+                margin-bottom: 30px;
+            }
+
+            form {
+                width: 300px;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            input[type="email"],
+            input[type="password"],
+            input[type="text"] {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            button[type="submit"] {
+                width: 100%;
+                padding: 10px;
+                background-color: #4CAF50;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            button[type="button"] {
+                width: 100%;
+                padding: 10px;
+                background-color: #2196F3;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-top: 10px;
+            }
+
+            #registerForm {
+                display: none;
+            }
+
+            #registerForm h1 {
+                text-align: center;
+                margin-top: 0;
+            }
+
+            .response {
+                margin-top: 10px;
+                padding: 10px;
+                background-color: #ddd;
+                border-radius: 5px;
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <form id="loginForm">
+            <h1>Login</h1>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Entrar</button>
+                <button type="button" id="cadastrar">Não possui cadastro? Cadastrar</button>
+            </div>
+            <div class="response" id="response"></div>
+        </form>
+        <div id="registerForm">
+            <h1>Cadastro de Usuário</h1>
+            <form id="userForm">
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" name="senha" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Cadastrar</button>
+                </div>
+                <button type="button" id="login">Já possui cadastro? Login</button>
+                <div class="response" id="response"></div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" required>
-        </div>
-        <div class="form-group">
-            <button type="submit">Cadastrar</button>
-        </div>
-    </form>
-    <script>
-        document.getElementById('userForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const nome = document.getElementById('nome').value;
-            const email = document.getElementById('email').value;
-            const senha = document.getElementById('senha').value;
-            const user = {
-                nome: nome,
-                email: email,
-                senha: senha
-            };
-            fetch('/api/usuarios', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(user)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.id) {
-                    alert('Usuário cadastrado com sucesso!');
-                } else {
-                    alert('Erro ao cadastrar usuário.');
+        <script>
+            document.getElementById('cadastrar').addEventListener('click', function () {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('registerForm').style.display = 'block';
+            });
+
+            document.getElementById('login').addEventListener('click', function () {
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('registerForm').style.display = 'none';
+            });
+            document.getElementById('login').addEventListener('click', function () {
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('registerForm').style.display = 'none';
+            });
+
+            document.getElementById('userForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+                const nome = document.getElementById('nome').value;
+                const email = document.getElementById('email').value;
+                const senha = document.getElementById('senha').value;
+                if (!nome || !email || !senha) {
+                    document.getElementById('response').style.display = 'block';
+                    document.getElementById('response').textContent = 'Por favor, preencha todos os campos.';
+                    return;
                 }
-            })
-            
+
+                fetch('/api/usuarios', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({nome, email, senha})
+                })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.id) {
+                                document.getElementById('response').style.display = 'block';
+                                document.getElementById('response').textContent = 'Cadastro realizado com sucesso!';
+                                setTimeout(() => {
+                                    document.getElementById('response').style.display = 'none';
+                                    document.getElementById('loginForm').style.display = 'block';
+                                    document.getElementById('registerForm').style.display = 'none';
+                                }, 2000);
+                            } else {
+                                document.getElementById('response').style.display = 'block';
+                                document.getElementById('response').textContent = 'Erro ao cadastrar usuário.';
+                            }
+                        });
+            });
+
+            document.getElementById('loginForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                const senha = document.getElementById('senha').value;
+                if (!email || !senha) {
+                    document.getElementById('response').style.display = 'block';
+                    document.getElementById('response').textContent = 'Por favor, preencha todos os campos.';
+                    return;
+                }
+
+                fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({email, senha})
+                })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                document.getElementById('response').style.display = 'block';
+                                document.getElementById('response').textContent = 'Login realizado com sucesso!';
+                                setTimeout(() => {
+                                    document.getElementById('response').style.display = 'none';
+                                    document.getElementById('loginForm').style.display = 'none';
+                                    document.getElementById('registerForm').style.display = 'none';
+                                    window.location.href = '/home';
+                                }, 2000);
+                            } else {
+                                document.getElementById('response').style.display = 'block';
+                                document.getElementById('response').textContent = 'Erro ao fazer login.';
+                            }
+                        });
+            });
+        </script>
+    </body>
+</html>
+
