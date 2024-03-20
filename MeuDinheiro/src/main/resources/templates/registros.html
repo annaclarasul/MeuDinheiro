@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Lista de Registros</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}"/>
+    </head>
+    <body>
+        <h1>Lista de Registros</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Tipo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="registro : ${registros}">
+                    <td th:text="${registro.data}"></td>
+                    <td th:text="${registro.descricao}"></td>
+                    <td th:text="${registro.valor}"></td>
+                    <td th:text="${registro.tipo}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/registros/novo}">Novo Registro</a>
+    </body>
+</html>
