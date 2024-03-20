@@ -4,6 +4,18 @@
  */
 package com.senac.MeuDinheiro.controller;
 
+import com.senac.MeuDinheiro.model.Transacao;
+import com.senac.MeuDinheiro.service.TransacaoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 @Controller
 @RequestMapping("/transacoes")
 public class TransacaoController {
@@ -16,17 +28,17 @@ public class TransacaoController {
     }
 
     @GetMapping
-    public String listarTransacoes(Model model) {
-        model.addAttribute("transacoes", transacaoService.getTransacoes());
-        return "transacoes/listar";
+    public ModelAndView listarTransacoes() {
+        ModelAndView modelAndView = new ModelAndView("transacoes/listar");
+        modelAndView.addObject("transacoes", transacaoService.getTransacoes());
+        return modelAndView;
     }
 
     @GetMapping("/nova")
-    public String novaTransacaoForm(Model model) {
-        Transacao transacao = new Transacao();
-        model.addAttribute("transacao", transacao);
-        model.addAttribute("categorias", transacaoService.getCategorias());
-        return "transacoes/nova";
+    public ModelAndView novaTransacaoForm() {
+        ModelAndView modelAndView = new ModelAndView("transacoes/nova");
+        modelAndView.addObject("categorias", transacaoService.getCategorias());
+        return modelAndView;
     }
 
     @PostMapping
@@ -39,16 +51,44 @@ public class TransacaoController {
     }
 
     @GetMapping("/{id}")
-    public String exibirTransacao(@PathVariable("id") Long id, Model model) {
+    public ModelAndView exibirTransacao(@PathVariable("id") Long id) {
+        ModelAndView modelAndView = new ModelAndView("transacoes/exibir");
         Transacao transacao = transacaoService.getTransacaoById(id);
         if (transacao == null) {
-            return "redirect:/transacoes";
+            return new ModelAndView("redirect:/transacoes");
         }
-        model.addAttribute("transacao", transacao);
-        return "transacoes/exibir";
+        modelAndView.addObject("transacao", transacao);
+        return modelAndView;
     }
 
     @GetMapping("/{id}/editar")
-    public String editarTransacaoForm(@PathVariable("id") Long id, Model model) {
+    public ModelAndView editarTransacaoForm(@PathVariable("id") Long id) {
+        ModelAndView modelAndView = new ModelAndView("transacoes/editar");
         Transacao transacao = transacaoService.getTransacaoById(id);
-        if (transacao == null
+        if (transacao == null) {
+            return new ModelAndView("redirect:/transacoes");
+        }
+        modelAndView.addObject("transacao", transacao);
+        modelAndView.addObject("categorias", transacaoService.getCategorias());
+        return modelAndView;
+    }
+
+    @PostMapping("/{id}/editar")
+    public String atualizarTransacao(@PathVariable("id") Long id, @ModelAttribute("transacao") Transacao transacao,
+            BindingResult result) {
+        if (result.hasErrors()) {
+            return "transacoes/editar";
+        }
+        transacaoService.updateTransacao(id, transacao);
+        return "redirect:/transacoes";
+    }
+
+    @GetMapping("/{id}/excluir")
+    public String excluirTransacao(@PathVariable("id") Long id) {
+        Transacao transacao = transacaoService.getTransacaoById(id);
+        if (transacao != null) {
+            transacaoService.deleteTransacaoById(id);
+        }
+        return "redirect:/transacoes";
+    }
+}
