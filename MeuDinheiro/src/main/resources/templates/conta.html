@@ -1,15 +1,148 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
+<html lang="pt-BR">
+
     <head>
-        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Controle Financeiro</title>
+        <style>
+            a.btn-visualizar {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                text-decoration: none;
+                border-radius: 4px;
+                margin-top: 10px;
+            }
+
+            a.btn-visualizar:hover {
+                background-color: #45a049;
+                cursor: pointer;
+            }
+        </style>
     </head>
+
     <body>
-        <div>TODO write content</div>
+
+        <div class="container">
+            <h1>Conta</h1>
+            <section class="user-info">
+                <div class="saldo">
+                    <h2>Saldo: R$ <span id="saldo">0,00</span></h2>
+                </div>
+                <div class="user-name">
+                    <h2 id="user-name">Nome do Usuário</h2>
+                </div>
+            </section>
+            <section class="notifications">
+                <div class="notification success">
+                    <div class="icon">&#10003;</div>
+                    <div class="text"><button id="btn-notificacao">Notificação</button></div>
+                </div>
+                <div class="notification warning">
+                    <div class="icon">!</div>
+                    <div class="text"><button id="btn-dicas">Dicas</button></div>
+                </div>
+            </section>
+            <section class="buttons">
+                <button id="btn-registros">Registro</button>
+                <button id="btn-transacoes">Transações</button>
+                <button id="btn-orcamento">Orçamento</button>
+                <button id="btn-metas">Metas</button>
+                <button id="btn-relatorio">Relatório</button>
+            </section>
+        </div>
+        <script>
+            
+             document.addEventListener('DOMContentLoaded', () => {
+                const btnNotificacoes = document.getElementById('btn-notificacao');
+                btnNotificacoes.addEventListener('click', () => {
+                    window.location.href = "notificaçoes.html";
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const btnDicas = document.getElementById('btn-dicas');
+                btnDicas.addEventListener('click', () => {
+                    window.location.href = "dicas.html";
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const btnRegistros = document.getElementById('btn-registros');
+                btnRegistros.addEventListener('click', () => {
+                    window.location.href = "REGISTROS.HTML.html";
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const btnTransacoes = document.getElementById('btn-transacoes');
+                btnTransacoes.addEventListener('click', () => {
+                    window.location.href = "transacoes.html";
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const btnOrcamento = document.getElementById('btn-orcamento');
+                btnOrcamento.addEventListener('click', () => {
+                    window.location.href = "orcamento.html";
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const btnMetas = document.getElementById('btn-metas');
+                btnMetas.addEventListener('click', () => {
+                    window.location.href = "metas.html";
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const btnRelatorio = document.getElementById('btn-relatorio');
+                btnRelatorio.addEventListener('click', () => {
+                    window.location.href = "relatorio.html";
+                });
+            });
+
+
+
+
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const form = document.getElementById("conta-form");
+                const tabela = document.getElementById("tabela");
+                form.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    const conta = {};
+                    const formData = new FormData(form);
+                    for (let [key, value] of formData.entries()) {
+                        conta[key] = value;
+                    }
+
+                    fetch("/api/contas", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(conta)
+                    })
+                            .then((res) => res.json())
+                            .then((data) => {
+                                const row = tabela.insertRow();
+                                Object.entries(data).forEach(([key, value]) => {
+                                    const cell = row.insertCell();
+                                    const text = document.createTextNode(value);
+                                    cell.appendChild(text);
+                                });
+                                form.reset();
+                            })
+                            .catch((err) => console.error(err));
+                });
+            }
+            );
+
+        </script>
     </body>
+
 </html>
