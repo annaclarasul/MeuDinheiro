@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Orçamento</title>
+    <style>
+      #orcamento-form {
+        width: 300px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      #orcamento-form label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      #orcamento-form input[type="text"],
+      #orcamento-form input[type="number"],
+      #orcamento-form input[type="date"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      #orcamento-form button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      #orcamento-form button[type="submit"]:hover {
+        background-color: #3e8e41;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="orcamento-form">
+      <div>
+        <label for="categoria">Categoria:</label>
+        <input type="text" id="categoria" name="categoria" required />
+      </div>
+      <div>
+             <div>
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" id="quantidade" name="quantidade" step="0.01" required />
+      </div>
+      <div>
+        <label for="start-date">Data de Início:</label>
+        <input type="date" id="start-date" name="start-date" required />
+      </div>
+      <div>
+        <label for="end-date">Data de Término:</label>
+        <input type="date" id="end-date" name="end-date" required />
+      </div>
+      <button type="submit">Adicionar Orçamento</button>
+    </form>
+
+    <script>
+      const form = document.getElementById("orcamento-form");
+
+      form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const categoria = document.getElementById("categoria").value;
+        const quantidade = document.getElementById("quantidade").value;
+        const startDate = document.getElementById("start-date").value;
+        const endDate = document.getElementById("end-date").value;
+
+        const orcamento = new Orcamento(categoria, quantidade, startDate, endDate);
+
+        OrcamentoService.adicionarOrcamento(orcamento);
+
+        alert("Orcamento adicionado com sucesso!");
+
+        document.getElementById("orcamento-form").reset();
+      });
+    </script>
+  </body>
+</html>
