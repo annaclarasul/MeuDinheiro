@@ -1,15 +1,96 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
 <html>
     <head>
-        <title>TODO supply a title</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Metas</title>
+        <style>
+            .info {
+                color: green;
+            }
+            .warning {
+                color: yellow;
+            }
+            .error {
+                color: red;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            th, td {
+                border: 1px solid black;
+                padding: 8px;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+            tr:hover {
+                background-color: #ddd;
+            }
+            form input[type="text"], form input[type="number"], form select {
+                width: 100%;
+                padding: 10px;
+                margin: 8px 0;
+                box-sizing: border-box;
+                border: 2px solid #ccc;
+                border-radius: 4px;
+            }
+            form input[type="submit"] {
+                width: 100%;
+                background-color: #4CAF50;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            form input[type="submit"]:hover {
+                background-color: #45a049;
+            }
+        </style>
     </head>
     <body>
-        <div>TODO write content</div>
+        <h1>Metas</h1>
+        <form id="meta-form">
+            <input type="hidden" id="meta-id" name="id">
+            <label for="meta-nome">Nome:</label>
+            <input type="text" id="meta-nome" name="nome">
+
+            <label for="meta-tipo">Tipo:</label>
+            <select id="meta-tipo" name="tipo">
+                <option value="despesa">Despesa</option>
+                <option value="receita">Receita</option>
+            </select>
+
+            <label for="meta-valor">Valor:</label>
+            <input type="number" id="meta-valor" name="valor">
+
+            <label for="meta-prazo">Prazo:</label>
+            <input type="date" id="meta-prazo" name="prazo">
+
+            <button type="submit" id="cf7_submit">Enviar</button>
+        </form>
+        <script>
+            const form = document.getElementById('meta-form');
+
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+
+                const id = document.getElementById('meta-id').value;
+                const nome = document.getElementById('meta-nome').value;
+                const tipo = document.getElementById('meta-tipo').value;
+                const valor = document.getElementById('meta-valor').value;
+                const prazo = document.getElementById('meta-prazo').value;
+
+                const meta = {id, nome, tipo, valor, prazo};
+
+                // Send the data to the server using AJAX or Fetch API
+            });
+        </script>
     </body>
 </html>
