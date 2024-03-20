@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dicas Financeiras</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            .tip {
+                margin: 10px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <h1>Dicas Financeiras</h1>
+
+        <div id="tip"></div>
+
+        <script>
+            // Instantiate the FinancialTipService
+            const financialTipService = new FinancialTipService();
+
+            // Simulate user input
+            const income = 5000;
+            const expenses = 2500;
+
+            // Generate a tip based on the user input
+            const tip = financialTipService.generateTip(income, expenses);
+
+            // Display the tip
+            const tipDiv = document.getElementById('tip');
+            tipDiv.className = 'dica';
+        </script>
+
+    </body>
+</html> 
