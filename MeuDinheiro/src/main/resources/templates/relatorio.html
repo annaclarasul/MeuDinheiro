@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Relatório Financeiro</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+
+            h1 {
+                background-color: #333;
+                color: #fff;
+                padding: 10px;
+                margin: 0;
+            }
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
+
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 th:text="${relatorio.nome}"></h1>
+        <p th:text="${relatorio.descricao}"></p>
+        <p>Data de geração: <span th:text="${relatorio.dataGeracao}"></span></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Receitas</td>
+                    <td th:text="${relatorio.totalReceitas}"></td>
+                </tr>
+                <tr>
+                    <td>Despesas</td>
+                    <td th:text="${relatorio.totalDespesas}"></td>
+                </tr>
+                <tr>
+                    <td>Saldo</td>
+                    <td th:text="${relatorio.saldo}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
