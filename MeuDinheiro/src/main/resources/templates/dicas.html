@@ -1,40 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
+
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
         <title>Dicas Financeiras</title>
         <style>
             body {
                 font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f2f2f2;
             }
+
+            h1 {
+                font-size: 3rem;
+                color: #333;
+                text-align: center;
+                padding: 2rem;
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            .row {
+                display: flex;
+                flex-wrap: wrap;
+                margin: 1rem;
+            }
+
+            .column {
+                flex-basis: 45%;
+                margin-bottom: 1rem;
+            }
+
+            input {
+                border: none;
+                border-radius: 4px;
+                padding: 0.5rem;
+                font-size: 1.2rem;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            button {
+                display: block;
+                width: 100%;
+                background-color: #4CAF50;
+                color: white;
+                padding: 1rem;
+                border: none;
+                border-radius: 4px;
+                font-size: 1.2rem;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: #45a049;
+            }
+
             .tip {
-                margin: 10px;
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
+                font-size: 1.2rem;
+                padding: 1rem;
+                background-color: #f2f2f2;
+                margin: 1rem;
+                border-radius: 4px;
             }
         </style>
     </head>
+
     <body>
 
-        <h1>Dicas Financeiras</h1>
-
-        <div id="tip"></div>
-
+        <h1>Dica Financeira</h1>
+        <div class="row">
+            <div class="column">
+                <p>Informe seus gastos:</p>
+                <input type="number" name="expenses" step="0.01" placeholder="Gastos">
+            </div>
+            <div class="column">
+                <p>Informe sua renda:</p>
+                <input type="number" name="income" step="0.01" placeholder="Renda">
+            </div>
+        </div>
+        <button>Gerar Dica</button>
+        <div class="tip">
+            <p></p>
+        </div>
+        <button onclick="window.location.href='conta.html'">Voltar</button>
         <script>
-            // Instantiate the FinancialTipService
-            const financialTipService = new FinancialTipService();
+            const button = document.querySelector('button');
+            const expensesInput = document.querySelector('[name="expenses"]');
+            const incomeInput = document.querySelector('[name="income"]');
+            const tip = document.querySelector('.tip p');
 
-            // Simulate user input
-            const income = 5000;
-            const expenses = 2500;
-
-            // Generate a tip based on the user input
-            const tip = financialTipService.generateTip(income, expenses);
-
-            // Display the tip
-            const tipDiv = document.getElementById('tip');
-            tipDiv.className = 'dica';
+            button.addEventListener('click', () => {
+                const expenses = expensesInput.value;
+                const income = incomeInput.value;
+                if (expenses && income) {
+                    fetch(`/financial-tip?income=${income}&expenses=${expenses}`)
+                            .then((response) => response.text())
+                            .then((data) => {
+                                tip.textContent = data;
+                            });
+                }
+            });
         </script>
-
     </body>
-</html> 
+
+</html>
