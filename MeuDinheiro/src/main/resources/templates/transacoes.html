@@ -49,6 +49,7 @@
             <div>
                 <button type="submit">Adicionar Transação</button>
             </div>
+            <button onclick="window.location.href='conta.html'">Voltar</button>
             <script>
                 // Close the form when the submit button is clicked
                 document.querySelector("button[type='submit']").addEventListener("click", function () {
@@ -57,15 +58,7 @@
             </script>
         </form>
         <table>
-            <thead>
-                <tr>
-                    <th>Descrição</th>
-                    <th>Valor</th>
-                    <th>Data</th>
-                    <th>Categoria</th>
-                    <th>Ação</th>
-                </tr>
-            </thead>
+           
             <tbody id="transaction-list">
             <script>
                 // Get a reference to the table body
