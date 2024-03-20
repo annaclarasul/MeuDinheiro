@@ -96,7 +96,7 @@
                 <input type="password" id="senha" name="senha" required>
             </div>
             <div class="form-group">
-                <button type="submit">Entrar</button>
+                  <button onclick="window.location.href='conta.html'">Entrar</button>
                 <button type="button" id="cadastrar">Não possui cadastro? Cadastrar</button>
             </div>
             <div class="response" id="response"></div>
@@ -117,13 +117,14 @@
                     <input type="password" id="senha" name="senha" required>
                 </div>
                 <div class="form-group">
-                    <button type="submit">Cadastrar</button>
+                     <button onclick="window.location.href='conta.html'">Cadastrar</button>
                 </div>
                 <button type="button" id="login">Já possui cadastro? Login</button>
                 <div class="response" id="response"></div>
             </form>
         </div>
         <script>
+
             document.getElementById('cadastrar').addEventListener('click', function () {
                 document.getElementById('loginForm').style.display = 'none';
                 document.getElementById('registerForm').style.display = 'block';
