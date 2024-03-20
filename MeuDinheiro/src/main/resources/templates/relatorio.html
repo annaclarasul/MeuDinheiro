@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Relatório Financeiro</title>
         <style>
             body {
+                box-sizing: border-box;
                 font-family: Arial, sans-serif;
+                font-size: 16px;
                 margin: 0;
-                padding: 0;
+                padding: 20px;
             }
 
             h1 {
@@ -14,6 +18,7 @@
                 color: #fff;
                 padding: 10px;
                 margin: 0;
+                text-align: center;
             }
 
             table {
@@ -29,6 +34,7 @@
 
             th {
                 background-color: #f2f2f2;
+                text-align: center;
             }
 
             tr:nth-child(even) {
@@ -37,9 +43,9 @@
         </style>
     </head>
     <body>
-        <h1 th:text="${relatorio.nome}"></h1>
-        <p th:text="${relatorio.descricao}"></p>
-        <p>Data de geração: <span th:text="${relatorio.dataGeracao}"></span></p>
+        <h1 data-th-text="${relatorio.nome}"></h1>
+        <p data-th-text="${relatorio.descricao}"></p>
+        <p>Data de geração: <span data-th-text="${relatorio.dataGeracao}"></span></p>
         <table>
             <thead>
                 <tr>
@@ -50,16 +56,17 @@
             <tbody>
                 <tr>
                     <td>Receitas</td>
-                    <td th:text="${relatorio.totalReceitas}"></td>
+                    <td data-th-text="${relatorio.totalReceitas}"></td>
                 </tr>
                 <tr>
                     <td>Despesas</td>
-                    <td th:text="${relatorio.totalDespesas}"></td>
+                    <td data-th-text="${relatorio.totalDespesas}"></td>
                 </tr>
                 <tr>
                     <td>Saldo</td>
-                    <td th:text="${relatorio.saldo}"></td>
+                    <td data-th-text="${relatorio.saldo}"></td>
                 </tr>
+                <button onclick="window.location.href='conta.html'">Voltar</button>
             </tbody>
         </table>
     </body>
