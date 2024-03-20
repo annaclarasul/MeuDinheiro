@@ -8,6 +8,7 @@ import com.senac.MeuDinheiro.model.Categoria;
 import com.senac.MeuDinheiro.model.Transacao;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class TransacaoService {
 
@@ -50,5 +51,20 @@ public class TransacaoService {
     public void deleteTransacaoById(Long id) {
         transacoes.removeIf(t -> t.getId().equals(id));
     }
+
+    public void updateTransacao(Long id, Transacao transacao) {
+        if (transacao == null) {
+            throw new IllegalArgumentException("A transação a ser atualizada não pode ser nula.");
+        }
+
+        if (Objects.nonNull(transacao.getId()) && !id.equals(transacao.getId())) {
+            throw new IllegalArgumentException("Id da transação recebido como parâmetro é diferente do id da transação fornecido.");
+        }
+
+        transacao.setId(id);
+
+    }
+
+   
 
 }
