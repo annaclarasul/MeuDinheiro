@@ -1,15 +1,124 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
 <html>
     <head>
-        <title>TODO supply a title</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Minhas Transações</title>
+        <style>
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 8px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            img {
+                display: block;
+                margin: 0 auto;
+            }
+        </style>
     </head>
     <body>
-        <div>TODO write content</div>
-    </body>
+        <h1>Minhas Transações</h1>
+        <form action="/transacoes" method="post">
+            <div>
+                <label for="descricao">Descrição:</label>
+                <input type="text" id="descricao" name="descricao" required>
+            </div>
+            <div>
+                <label for="valor">Valor:</label>
+                <input type="number" id="valor" name="valor" step="0.01" required>
+            </div>
+            <div>
+                <label for="data">Data:</label>
+                <input type="date" id="data" name="data" required>
+            </div>
+            <div>
+                <label for="categoria">Categoria:</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="">Selecione uma categoria</option>
+                    <option value="1">Alimentação</option>
+                    <option value="2">Transporte</option>
+                    <option value="3">Lazer</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit">Adicionar Transação</button>
+            </div>
+            <script>
+                // Close the form when the submit button is clicked
+                document.querySelector("button[type='submit']").addEventListener("click", function () {
+                    this.parentNode.style.display = "none";
+                });
+            </script>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                    <th>Categoria</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody id="transaction-list">
+            <script>
+                // Get a reference to the table body
+                var tableBody = document.querySelector("#transaction-list tbody");
+
+                // Get a reference to the form for adding a new transaction
+                var form = document.querySelector("form");
+
+// Add a submit event listener to the form
+                form.addEventListener("submit", function(event) {
+                // Prevent the form from submitting normally
+                event.preventDefault();
+                        // Get the form data
+                        var data = new FormData(form);
+                        // Send a POST request to the server to add the new transaction
+                        fetch("/transacoes", {
+                        method: "POST",
+                                body: data
+                        })
+                        .then(function(response) {
+                        // Parse the response as JSON
+                        return response.json();
+                        })
+                        .then(function(transaction) {
+                        // Create a new table row for the transaction
+                        var row = document.createElement("tr");
+                                row.id = "transaction-" + transaction.id;
+                                // Create a cell for the transaction description
+                                var descriptionCell = document.createElement("td");
+                                descriptionCell.textContent = transaction.descricao;
+                                row.appendChild(descriptionCell);
+                                // Create a cell for the transaction value
+                                var valueCell = document.createElement("td");
+                                valueCell.textContent = transaction.valor;
+                                row.appendChild(valueCell);
+                                // Create a cell for the transaction date
+                                var dateCell = document.createElement("td");
+                                dateCell.textContent = transaction.data;
+                                row.appendChild(dateCell);
+                                // Create a cell for the transaction category
+                                var categoryCell = document.createElement("td");
+                                categoryCell.textContent = transaction.categoria.nome;
+                                row.appendChild(categoryCell);
+                                // Create a cell for the action links
+                                var actionCell = document.createElement("td");
+                                // Create the edit link
+                                var editLink = document.createElement("a");
+                                editLink.textContent = "Editar";
+                                editLink.href = "/transacoes/1";
+                                // Add the edit link to the table
+                                tableBody.appendChild(editLink);
+            </script>
+        </tbody>
+    </table>
+</body>
 </html>
