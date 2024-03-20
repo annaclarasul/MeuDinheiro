@@ -5,7 +5,9 @@
 package com.senac.MeuDinheiro.controller;
 
 import com.senac.MeuDinheiro.model.Usuario;
+import com.senac.MeuDinheiro.service.UsuarioService;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/Usuario")
 public class UsuarioController {
 
     @Autowired
@@ -32,11 +34,12 @@ public class UsuarioController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> obterUsuarioPorId(@PathVariable Long id) {
-        Usuario usuario = usuarioService.obterUsuarioPorId(id);
-        if (usuario == null) {
+        Optional<Usuario> usuario = usuarioService.obterUsuarioPorId(id);
+        if (usuario.isPresent()) {
+            return ResponseEntity.ok(usuario.get());
+        } else {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(usuario);
     }
 
     @GetMapping
@@ -45,19 +48,19 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarios);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> ExcluirUsuario(@PathVariable Long id) {
-        usuarioService.ExcluirUsuario(id);
-        return ResponseEntity.noContent().build();
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
-        Usuario atualizarUsuario = usuarioService.atualizarUsuario(usuario);
-        if (atualizarUsuario == null) {
+        Optional<Usuario> updatedUsuario = usuarioService.atualizarUsuario(id, usuario);
+        if (updatedUsuario.isPresent()) {
+            return ResponseEntity.ok(updatedUsuario.get());
+        } else {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(atualizarUsuario);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluirUsuario(@PathVariable Long id) {
+        usuarioService.excluirUsuario(id);
+        return ResponseEntity.noContent().build();
+    }
 }
